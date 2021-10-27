@@ -5,7 +5,6 @@ pipeline {
       parallel {
         stage('UAT') {
           steps {
-            input(message: 'waiting for approval', id: '1', submitter: 'admin', submitterParameter: 'approve', ok: 'approve')
             sh 'echo "this is a build stage for UAT env"'
           }
         }
@@ -21,7 +20,8 @@ pipeline {
 
     stage('Prod') {
       steps {
-        sh 'echo "this is a prod build"'
+        input(message: 'waiting for approval', id: 'approval id', ok: 'approve', submitter: 'harshal', submitterParameter: 'approve')
+        sh 'echo "this is a prod build and i will execute once got approval from harshal"'
       }
     }
 
